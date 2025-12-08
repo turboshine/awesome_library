@@ -7,6 +7,29 @@ class Books():
         self.status = status
         self.user = user
 
+
+def user_log(categories):
+    for category in categories:
+        Books.append(category)
+    result = {}
+    if category.status == "returned":
+        new_status = "in library"
+    elif category.status == "not returned":
+        new_status = "fine"
+    elif category.status == "reading":
+        new_status = "book in circulation"
+    else:
+        new_status = "NA"
+
+    for b in Books:
+        result.setdefault(b.title,{
+        b.user : set(),
+        b.status : new_status
+        })
+        result[b.title]["user"].add(b.user)
+        result[b.title]["status"]= new_status
+    return result
+                
 categories = [
     Books("ARC", "Gamerville","abc","2024-06-01","Reading","Alice"),
     Books("ARC","Gamerville","abc","2024-07-01","completed","Alice"),
@@ -19,7 +42,7 @@ categories = [
 ]
 print("Book in circulation:")
 print("-----------------------")
-print(user_log())
-print("Authors chimed in:")
-print("-----------------------")
-print(author_hits(()))
+print(user_log(categories))
+# print("Authors chimed in:")
+# print("-----------------------")
+# print(author_hits(()))
